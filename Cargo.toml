@@ -1,0 +1,20 @@
+[package]
+name = "supabase-js-rs"
+description = "Rust bindings for Supabase JavaScript library via WebAssembly"
+readme = "README.md"
+repository = "https://github.com/wa1aric/supabase-js-rs/"
+version = "0.1.0"
+edition = "2021"
+authors = ["Valery Stepanov <etonomick@gmail.com>"]
+keywords = ["supabase", "supabase-js", "wasm"]
+categories = ["wasm", "web-programming", "authentication", "database"]
+license = "MIT OR Apache-2.0"
+exclude = ["examples"]
+
+[dependencies]
+wasm-bindgen = "0.2.83"
+wasm-bindgen-futures = "0.4.33"
+js-sys = "0.3.60"
+
+[badges]
+maintenance = { status = "actively-developed" }

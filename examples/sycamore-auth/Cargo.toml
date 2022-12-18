@@ -1,0 +1,12 @@
+[package]
+name = "sycamore-auth"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+supabase-js-rs = { path = "../../" }
+sycamore = { version = "0.8.2", features = ["suspense"] }
+wasm-bindgen = "0.2.83"
+wasm-bindgen-futures = "0.4.33"
+web-sys = "0.3.60"
+js-sys = "0.3.60"
