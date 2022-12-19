@@ -24,7 +24,7 @@ trunk serve
 
 ## Examples
 
-- [x] [Sycamore Auth Example](https://sycamore-supabase-js-rs-auth-demo.netlify.app/)
+- [x] [Sycamore Auth Example](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-auth)
 - [ ] Perseus
 - [ ] Yew
 - [ ] Seed
