@@ -8,6 +8,7 @@ Add `supabase-js-rs` to Cargo.toml
 
 ```
 supabase-js-rs = { version = "0.1.0" }
+wasm-bindgen = "0.2.83"
 ```
 
 Install `@supabase/supabase-js` as package by adding CDN link to index.html in the root of your crate
