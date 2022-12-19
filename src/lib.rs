@@ -16,6 +16,7 @@ extern "C" {
     #[wasm_bindgen(js_namespace = ["supabase"], js_name = createClient)]
     pub fn create_client(supabase_url: &str, supabase_key: &str) -> SupabaseClient;
 
+    #[derive(Debug, Clone, PartialEq)]
     pub type SupabaseClient;
 
     /// Auth methods
