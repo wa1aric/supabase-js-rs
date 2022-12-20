@@ -1,0 +1,11 @@
+[package]
+name = "yew-supabase-auth"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+yew = { version = "0.20.0", features = ["csr"] }
+supabase-js-rs = { path = "../../" }
+wasm-bindgen = "0.2.83"
+web-sys = "0.3.60"
+js-sys = "0.3.60"

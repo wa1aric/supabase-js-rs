@@ -25,9 +25,9 @@ trunk serve
 
 ## Examples
 
-- [x] [Sycamore Auth Example](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-auth)
+- [x] [Sycamore](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-auth)
 - [ ] Perseus
-- [ ] Yew
+- [x] [Yew](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/yew-supabase-auth)
 - [ ] Seed
 - [ ] Leptos
 
