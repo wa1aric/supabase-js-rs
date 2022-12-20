@@ -24,13 +24,10 @@ async fn Auth<G: Html>(cx: Scope<'_>) -> View<G> {
 
             h2 {"Signin or create account"}
 
-            label {"Email"}
             input(type="email", placeholder="Email", bind:value=email) {}
-
-            label {"Password"}
             input(type="password", placeholder="Password", bind:value=password) {}
 
-            button(disabled=email.get().is_empty() || password.get().is_empty(), on:click=move |_| {
+            button(class="sign-in-button", disabled=email.get().is_empty() || password.get().is_empty(), on:click=move |_| {
                 let loading_clone = loading.clone();
                 let client_clone: RcSignal<SupabaseClient> = client.clone();
 
@@ -159,14 +156,13 @@ fn App<G: Html>(cx: Scope) -> View<G> {
 
     view! {
         cx,
-        div(class="container") {
-            h1 { "Sycamore With Supabase Auth Example" }
-            hr {}
+        div(class="app") {
+            h1 { span(class="sycamore") {"Sycamore"} " with " span(class="supabase") {"Supabase"} " Auth" }
             (
                 if use_context::<RcSignal<Loading>>(cx).get().is_loading() {
                     view! {
                         cx,
-                        "Loading..."
+                        h2 {"Loading..."}
                     }
                 }
                 else {
@@ -177,7 +173,7 @@ fn App<G: Html>(cx: Scope) -> View<G> {
                     else {
                         view! {
                             cx,
-                            p {(format!(" {}", session_context.get().stringify_data()))}
+                            code {(format!(" {}", session_context.get().stringify_data()))}
                             button(on:click=move |_| {
                                 let loading = use_context::<RcSignal<Loading>>(cx);
                                 let loading_clone = loading.clone();

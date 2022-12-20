@@ -87,7 +87,7 @@ fn Index() -> Html {
     let data: JsValue = session.data.to_owned();
 
     let email_input_ref = use_node_ref();
-    let email_input_handle = use_state(|| String::default());
+    let email_input_handle = use_state(String::default);
     let email_input_value = (*email_input_handle).clone();
     let email = email_input_value.clone();
 
@@ -109,8 +109,7 @@ fn Index() -> Html {
         let password_input_value_handle = password_input_value_handle.clone();
         Callback::from(move |e: InputEvent| {
             let target: Option<EventTarget> = e.target();
-            let input: Option<HtmlInputElement> =
-                target.and_then(|t| t.dyn_into::<HtmlInputElement>().ok());
+            let input = target.and_then(|t| t.dyn_into::<HtmlInputElement>().ok());
             if let Some(input) = input {
                 password_input_value_handle.set(input.value());
             }

@@ -9,6 +9,22 @@ pub struct Credentials {
     pub password: String,
 }
 
+/*
+#[wasm_bindgen(getter_with_clone)]
+pub struct MFAChallengeParams {
+    pub factor_id: String,
+}
+*/
+
+/*
+#[wasm_bindgen(getter_with_clone)]
+pub struct MFAVerifyParams {
+    pub factor_id: String,
+    pub challenge_id: String,
+    pub code: String,
+}
+*/
+
 #[wasm_bindgen]
 extern "C" {
 
@@ -58,5 +74,20 @@ extern "C" {
     /// ```
     #[wasm_bindgen(method, js_name = onAuthStateChange)]
     pub fn on_auth_state_change(this: &Auth, callback: &Closure<dyn FnMut(JsValue, JsValue)>);
+
+    /*
+    pub type Mfa;
+
+    #[wasm_bindgen(method, getter = mfa)]
+    pub fn mfa(this: &Auth) -> Mfa;
+
+    /// Create a challenge
+    #[wasm_bindgen(method, catch, js_name = challenge)]
+    pub fn challenge(this: &Mfa, params: MFAChallengeParams) -> Result<JsValue, JsValue>;
+
+    /// Verify a challenge
+    #[wasm_bindgen(method, catch, js_name = verify)]
+    pub fn verify(this: &Mfa, params: MFAVerifyParams) -> Result<JsValue, JsValue>;
+    */
 
 }
