@@ -6,6 +6,22 @@ Live demo [sycamore-supabase-js-rs-auth-demo.netlify.app](https://sycamore-supab
 
 ## Running
 
+Add enironment variables
+
+```
+SUPABASE_URL={ACCESS_TOKEN}
+SUPABASE_KEY={SUPABASE_KEY}
+```
+
+of if you on PowerShell
+
+```
+$Env:SUPABASE_URL="{ACCESS_TOKEN}"
+$Env:SUPABASE_KEY="{SUPABASE_KEY}"
+```
+
+and then
+
 ```
 trunk serve
 ```
