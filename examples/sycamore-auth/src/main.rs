@@ -1,16 +1,19 @@
 use js_sys::{JsString, Object, Reflect, JSON};
 use supabase_js_rs::*;
-use sycamore::{futures::spawn_local_scoped, prelude::*};
+use sycamore::prelude::*;
 use wasm_bindgen::{prelude::Closure, JsValue, __rt::IntoJsResult};
+use wasm_bindgen_futures::spawn_local;
 
 #[component]
 async fn Auth<G: Html>(cx: Scope<'_>) -> View<G> {
-    let loading = use_context::<RcSignal<Loading>>(cx);
+    let use_loading_context = use_context::<RcSignal<Loading>>(cx);
+    let loading = use_loading_context.clone();
 
     let state = use_context::<RcSignal<Session>>(cx);
     let state_clone = state.clone();
 
-    let client = use_context::<RcSignal<SupabaseClient>>(cx);
+    let use_client_context = use_context::<RcSignal<SupabaseClient>>(cx);
+    let client = use_client_context.clone();
 
     let email = create_signal(cx, String::new());
     let password = create_signal(cx, String::new());
@@ -25,40 +28,17 @@ async fn Auth<G: Html>(cx: Scope<'_>) -> View<G> {
             input(type="password", placeholder="Password", bind:value=password) {}
 
             button(class="sign-in-button", disabled=email.get().is_empty() || password.get().is_empty(), on:click=move |_| {
+                let loading_clone = loading.clone();
+                let client_clone: RcSignal<SupabaseClient> = client.clone();
 
                 let email = email.get().to_string();
                 let password = password.get().to_string();
 
-                spawn_local_scoped(cx, async move {
-                    let res: Result<JsValue, JsValue> = client.get().auth().sign_in_with_password(Credentials {
-                        email,
-                        password,
-                    }).await;
-                    match res {
-                        Ok(res) => {
-                            let response = Object::from(res);
-                            let error_oject = Object::from(Reflect::get(&response, &"error".into_js_result().unwrap()).unwrap());
-                            let message = Reflect::get(&error_oject, &"message".into_js_result().unwrap());
-                            match message {
-                                Ok(msg) => state.get().error.set(msg),
-                                Err(_) => (),
-                            }
-                        },
-                        _ => (),
-                    };
-                    loading.set(Loading(false));
-                });
+                let state_clone = state_clone.clone();
 
-            }) { "Sign In" }
-
-            button(disabled=email.get().is_empty() || password.get().is_empty(), on:click=move |_| {
-
-                let email = email.get().to_string();
-                let password = password.get().to_string();
-
-                spawn_local_scoped(cx, async move {
-                    loading.set(Loading(true));
-                    let res: Result<JsValue, JsValue> = client.get().auth().sign_up(Credentials {
+                spawn_local(async move {
+                    loading_clone.set(Loading(true));
+                    let res: Result<JsValue, JsValue> = client_clone.get().auth().sign_in_with_password(Credentials {
                         email,
                         password
                     }).await;
@@ -68,15 +48,45 @@ async fn Auth<G: Html>(cx: Scope<'_>) -> View<G> {
                             let error_oject = Object::from(Reflect::get(&response, &"error".into_js_result().unwrap()).unwrap());
                             let message = Reflect::get(&error_oject, &"message".into_js_result().unwrap());
                             match message {
-                                Ok(msg) => state.get().error.set(msg),
+                                Ok(msg) => state_clone.get().error.set(msg),
                                 Err(_) => (),
                             }
                         },
                         _ => (),
                     };
-                    loading.set(Loading(false));
+                    loading_clone.set(Loading(false));
                 });
+            }) { "Sign In" }
 
+            button(disabled=email.get().is_empty() || password.get().is_empty(), on:click=move |_| {
+                let loading_clone = use_loading_context.clone();
+                let client_clone = use_client_context.clone();
+
+                let email = email.get().to_string();
+                let password = password.get().to_string();
+
+                let state_clone = state.clone();
+
+                spawn_local(async move {
+                    loading_clone.set(Loading(true));
+                    let res: Result<JsValue, JsValue> = client_clone.get().auth().sign_up(Credentials {
+                        email,
+                        password
+                    }).await;
+                    match res {
+                        Ok(res) => {
+                            let response = Object::from(res);
+                            let error_oject = Object::from(Reflect::get(&response, &"error".into_js_result().unwrap()).unwrap());
+                            let message = Reflect::get(&error_oject, &"message".into_js_result().unwrap());
+                            match message {
+                                Ok(msg) => state_clone.get().error.set(msg),
+                                Err(_) => (),
+                            }
+                        },
+                        _ => (),
+                    };
+                    loading_clone.set(Loading(false));
+                });
             }) { "Create account" }
 
             p(class="error") {"Auth error:" (format!(" {:#?}", state.get().error.get()))}
@@ -116,12 +126,12 @@ impl Session {
 
 #[component]
 fn App<G: Html>(cx: Scope) -> View<G> {
-    let client =
-        supabase_js_rs::create_client(std::env!("SUPABASE_URL"), std::env!("SUPABASE__KEY"));
+    let client = supabase_js_rs::create_client("", "");
 
     let loading = create_rc_signal(Loading(false));
     provide_context(cx, loading);
-    let loading = use_context::<RcSignal<Loading>>(cx);
+    let use_loading_context = use_context::<RcSignal<Loading>>(cx);
+    let loading = use_loading_context.clone();
 
     let create_session = create_rc_signal(Session {
         access_key: create_rc_signal(String::from("")),
@@ -165,13 +175,17 @@ fn App<G: Html>(cx: Scope) -> View<G> {
                             cx,
                             code {(format!(" {}", session_context.get().stringify_data()))}
                             button(on:click=move |_| {
+                                let loading = use_context::<RcSignal<Loading>>(cx);
+                                let loading_clone = loading.clone();
 
-                                spawn_local_scoped(cx, async move {
-                                    loading.set(Loading(true));
-                                    let _ = client.get().auth().sign_out().await;
-                                    loading.set(Loading(false));
+                                let client = use_context::<RcSignal<SupabaseClient>>(cx);
+                                let client_clone = client.clone();
+
+                                spawn_local(async move {
+                                    loading_clone.set(Loading(true));
+                                    let _ = client_clone.get().auth().sign_out().await;
+                                    loading_clone.set(Loading(false));
                                 });
-
                             }) { "Sign Out" }
                         }
                     }

@@ -39,6 +39,9 @@ extern "C" {
     #[wasm_bindgen(method, getter = auth)]
     pub fn auth(this: &SupabaseClient) -> Auth;
 
+    // #[wasm_bindgen(method, getter = from)]
+    // pub fn from(this: &SupabaseClient, table: &str) -> Database;
+
     pub type Auth;
 
     /// Sign in a user
@@ -89,5 +92,10 @@ extern "C" {
     #[wasm_bindgen(method, catch, js_name = verify)]
     pub fn verify(this: &Mfa, params: MFAVerifyParams) -> Result<JsValue, JsValue>;
     */
+
+    // pub type Database;
+
+    // #[wasm_bindgen(method, catch, js_name = select)]
+    // pub async fn select(this: &Database) -> Result<JsValue, JsValue>;
 
 }
