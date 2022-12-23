@@ -35,12 +35,20 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq)]
     pub type SupabaseClient;
 
+    #[wasm_bindgen(method, js_name = from)]
+    pub fn from(this: &SupabaseClient, table: &str) -> Database;
+
+    pub type Database;
+
+    #[wasm_bindgen(method, catch, js_name = select)]
+    pub async fn select(this: &Database, columns: Option<&str>) -> Result<JsValue, JsValue>;
+
+    #[wasm_bindgen(method, catch, js_name = insert)]
+    pub async fn insert(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
+
     /// Auth methods
     #[wasm_bindgen(method, getter = auth)]
     pub fn auth(this: &SupabaseClient) -> Auth;
-
-    // #[wasm_bindgen(method, getter = from)]
-    // pub fn from(this: &SupabaseClient, table: &str) -> Database;
 
     pub type Auth;
 
@@ -92,10 +100,5 @@ extern "C" {
     #[wasm_bindgen(method, catch, js_name = verify)]
     pub fn verify(this: &Mfa, params: MFAVerifyParams) -> Result<JsValue, JsValue>;
     */
-
-    // pub type Database;
-
-    // #[wasm_bindgen(method, catch, js_name = select)]
-    // pub async fn select(this: &Database) -> Result<JsValue, JsValue>;
 
 }
