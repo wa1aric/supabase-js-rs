@@ -44,7 +44,7 @@ extern "C" {
     pub async fn select(this: &Database, columns: Option<&str>) -> Result<JsValue, JsValue>;
 
     #[wasm_bindgen(method, js_name = select)]
-    pub fn select_chain(this: &Database, columns: Option<&str>) -> Database;
+    pub fn select_(this: &Database, columns: Option<&str>) -> Database;
 
     /// Column is equal to a value
     /// Match only rows where column is equal to value.
@@ -52,7 +52,7 @@ extern "C" {
     pub async fn eq(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
 
     #[wasm_bindgen(method, js_name = eq)]
-    pub fn eq_chain(this: &Database, column: &str, value: &JsValue) -> Database;
+    pub fn eq_(this: &Database, column: &str, value: &JsValue) -> Database;
 
     /// Column is not equal to a value
     /// Match only rows where column is not equal to value.
@@ -60,7 +60,43 @@ extern "C" {
     pub async fn neq(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
 
     #[wasm_bindgen(method, js_name = neq)]
-    pub fn neq_chain(this: &Database, column: &str, value: &JsValue) -> Database;
+    pub fn neq_(this: &Database, column: &str, value: &JsValue) -> Database;
+
+    /// Column is greater than a value
+    #[wasm_bindgen(method, catch, js_name = gt)]
+    pub async fn gt(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
+
+    #[wasm_bindgen(method, js_name = gt)]
+    pub fn gt_(this: &Database, column: &str, value: &JsValue) -> Database;
+
+    /// Column is greater than or equal to a value
+    #[wasm_bindgen(method, catch, js_name = gte)]
+    pub async fn gte(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
+
+    #[wasm_bindgen(method, js_name = gte)]
+    pub fn gte_(this: &Database, column: &str, value: &JsValue) -> Database;
+
+    /// Column is less than a value
+    #[wasm_bindgen(method, catch, js_name = lt)]
+    pub async fn lt(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
+
+    #[wasm_bindgen(method, js_name = lt)]
+    pub fn lt_(this: &Database, column: &str, value: &JsValue) -> Database;
+
+    /// Column is less than or equal to a value
+    #[wasm_bindgen(method, catch, js_name = lte)]
+    pub async fn lte(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
+
+    #[wasm_bindgen(method, js_name = lte)]
+    pub fn lte_(this: &Database, column: &str, value: &JsValue) -> Database;
+
+    /// Column matches a pattern
+    #[wasm_bindgen(method, catch, js_name = like)]
+    pub async fn like(this: &Database, column: &str, pattern: &JsValue)
+        -> Result<JsValue, JsValue>;
+
+    #[wasm_bindgen(method, js_name = like)]
+    pub fn like_(this: &Database, column: &str, pattern: &JsValue) -> Database;
 
     #[wasm_bindgen(method, catch, js_name = update)]
     pub async fn update(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
