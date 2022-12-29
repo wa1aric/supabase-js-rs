@@ -43,6 +43,28 @@ extern "C" {
     #[wasm_bindgen(method, catch, js_name = select)]
     pub async fn select(this: &Database, columns: Option<&str>) -> Result<JsValue, JsValue>;
 
+    #[wasm_bindgen(method, js_name = select)]
+    pub fn select_chain(this: &Database, columns: Option<&str>) -> Database;
+
+    /// Column is equal to a value
+    /// Match only rows where column is equal to value.
+    #[wasm_bindgen(method, catch, js_name = eq)]
+    pub async fn eq(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
+
+    #[wasm_bindgen(method, js_name = eq)]
+    pub fn eq_chain(this: &Database, column: &str, value: &JsValue) -> Database;
+
+    /// Column is not equal to a value
+    /// Match only rows where column is not equal to value.
+    #[wasm_bindgen(method, catch, js_name = neq)]
+    pub async fn neq(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
+
+    #[wasm_bindgen(method, js_name = neq)]
+    pub fn neq_chain(this: &Database, column: &str, value: &JsValue) -> Database;
+
+    #[wasm_bindgen(method, catch, js_name = update)]
+    pub async fn update(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
+
     #[wasm_bindgen(method, catch, js_name = insert)]
     pub async fn insert(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
 
@@ -101,4 +123,20 @@ extern "C" {
     pub fn verify(this: &Mfa, params: MFAVerifyParams) -> Result<JsValue, JsValue>;
     */
 
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+    fn creates_new_client() {
+        let client = create_client("supabase_url", "supabase_key");
+    }
+    #[test]
+    fn get_auth() {
+        let clinet = create_client("supabase_url", "supabase_key");
+        clinet.auth();
+    }
 }
