@@ -124,19 +124,3 @@ extern "C" {
     */
 
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    #[should_panic]
-    fn creates_new_client() {
-        let client = create_client("supabase_url", "supabase_key");
-    }
-    #[test]
-    fn get_auth() {
-        let clinet = create_client("supabase_url", "supabase_key");
-        clinet.auth();
-    }
-}
