@@ -54,6 +54,14 @@ trunk serve
   - [ ] Unenroll a factor
   - [ ] Get Authenticator Assurance Level
 - [ ] Database
+  - [ ] Fetch data
+  - [ ] Insert data
+  - [ ] Update data
+  - [ ] Upsert data
+  - [ ] Delete data
+  - [ ] Call a Postgres function
+  - [ ] Using filters
+  - [ ] Using Modifiers
 - [ ] Functions
 - [ ] Realtime
 - [ ] Storage
