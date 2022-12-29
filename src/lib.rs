@@ -101,6 +101,9 @@ extern "C" {
     #[wasm_bindgen(method, catch, js_name = update)]
     pub async fn update(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
 
+    #[wasm_bindgen(method, js_name = update)]
+    pub fn update_(this: &Database, values: JsValue) -> Database;
+
     #[wasm_bindgen(method, catch, js_name = insert)]
     pub async fn insert(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
 
