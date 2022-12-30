@@ -104,6 +104,18 @@ extern "C" {
     #[wasm_bindgen(method, js_name = update)]
     pub fn update_(this: &Database, values: JsValue) -> Database;
 
+    /// Delete data
+    ///
+    /// Should always be combined with filters
+    ///
+    /// ```ignore
+    /// let client = supabase_js_rs::create_client("https://xyzcompany.supabase.co", "public-anon-key");
+    /// let res: Result<JsValue, JsValue> = client.from("countries").delete().eq("id", 1.into_js_result().unwrap()).await;
+    /// ```
+    ///
+    #[wasm_bindgen(method, js_name = delete)]
+    pub fn delete(this: &Database) -> Database;
+
     #[wasm_bindgen(method, catch, js_name = insert)]
     pub async fn insert(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
 
