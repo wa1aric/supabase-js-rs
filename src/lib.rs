@@ -28,7 +28,8 @@ pub struct MFAVerifyParams {
 #[wasm_bindgen]
 extern "C" {
 
-    /// Create client
+    /// # Create client
+    ///
     #[wasm_bindgen(js_namespace = ["supabase"], js_name = createClient)]
     pub fn create_client(supabase_url: &str, supabase_key: &str) -> SupabaseClient;
 
@@ -42,67 +43,118 @@ extern "C" {
 
     #[wasm_bindgen(method, catch, js_name = select)]
     pub async fn select(this: &Database, columns: Option<&str>) -> Result<JsValue, JsValue>;
-
     #[wasm_bindgen(method, js_name = select)]
     pub fn select_(this: &Database, columns: Option<&str>) -> Database;
 
-    /// Column is equal to a value
+    /// # Column is equal to a value
+    ///
     /// Match only rows where column is equal to value.
+    ///
     #[wasm_bindgen(method, catch, js_name = eq)]
     pub async fn eq(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
-
     #[wasm_bindgen(method, js_name = eq)]
     pub fn eq_(this: &Database, column: &str, value: &JsValue) -> Database;
 
-    /// Column is not equal to a value
+    /// # Column is not equal to a value
+    ///
     /// Match only rows where column is not equal to value.
+    ///
     #[wasm_bindgen(method, catch, js_name = neq)]
     pub async fn neq(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
-
     #[wasm_bindgen(method, js_name = neq)]
     pub fn neq_(this: &Database, column: &str, value: &JsValue) -> Database;
 
-    /// Column is greater than a value
+    /// # Column is greater than a value
+    ///
+    /// Match only rows where column is greater than value.
+    ///
     #[wasm_bindgen(method, catch, js_name = gt)]
     pub async fn gt(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
-
     #[wasm_bindgen(method, js_name = gt)]
     pub fn gt_(this: &Database, column: &str, value: &JsValue) -> Database;
 
-    /// Column is greater than or equal to a value
+    /// # Column is greater than or equal to a value
+    ///
+    /// Match only rows where column is greater than or equal to value.
+    ///
     #[wasm_bindgen(method, catch, js_name = gte)]
     pub async fn gte(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
-
     #[wasm_bindgen(method, js_name = gte)]
     pub fn gte_(this: &Database, column: &str, value: &JsValue) -> Database;
 
-    /// Column is less than a value
+    /// # Column is less than a value
+    ///
+    /// Match only rows where column is less than value.
+    ///
     #[wasm_bindgen(method, catch, js_name = lt)]
     pub async fn lt(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
-
     #[wasm_bindgen(method, js_name = lt)]
     pub fn lt_(this: &Database, column: &str, value: &JsValue) -> Database;
 
-    /// Column is less than or equal to a value
+    /// # Column is less than or equal to a value
+    ///
+    /// Match only rows where column is less than or equal to value.
+    ///
     #[wasm_bindgen(method, catch, js_name = lte)]
     pub async fn lte(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
-
     #[wasm_bindgen(method, js_name = lte)]
     pub fn lte_(this: &Database, column: &str, value: &JsValue) -> Database;
 
-    /// Column matches a pattern
+    /// # Column matches a pattern
+    ///
+    /// Match only rows where column matches pattern case-sensitively.
+    ///
     #[wasm_bindgen(method, catch, js_name = like)]
-    pub async fn like(this: &Database, column: &str, pattern: &JsValue)
-        -> Result<JsValue, JsValue>;
-
+    pub async fn like(this: &Database, column: &str, pattern: &str) -> Result<JsValue, JsValue>;
     #[wasm_bindgen(method, js_name = like)]
-    pub fn like_(this: &Database, column: &str, pattern: &JsValue) -> Database;
+    pub fn like_(this: &Database, column: &str, pattern: &str) -> Database;
+
+    /// # Column matches a case-insensitive pattern
+    ///
+    /// Match only rows where column matches pattern case-insensitively.
+    ///
+    /// ```ignore
+    /// client.from("countries").select(None).ilike(&"name", &"%alba%").await;
+    /// ```
+    ///
+    #[wasm_bindgen(method, catch, js_name = ilike)]
+    pub async fn ilike(this: &Database, column: &str, pattern: &str) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = ilike)]
+    pub fn ilike_(this: &Database, column: &str, pattern: &str) -> Database;
+
+    /// # Column is a value
+    ///
+    /// Match only rows where column IS value.
+    ///
+    /// ```ignore
+    /// // check for nullness
+    /// client.from("countries").select(None).is("name", JsValue::NULL);
+    /// // or check for true of false
+    /// client.from("countries").select(None).is("name", JsValue::TRUE);
+    /// ```
+    ///
+    #[wasm_bindgen(method, catch, js_name = is)]
+    pub async fn is(this: &Database, column: &str, value: &JsValue) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = is)]
+    pub fn is_(this: &Database, column: &str, value: &JsValue) -> Database;
+
+    /// # Column is in an array
+    ///
+    /// Match only rows where column is included in the values array.
+    ///
+    #[wasm_bindgen(method, catch, js_name = in)]
+    pub async fn r#in(
+        this: &Database,
+        column: &str,
+        values: Vec<JsValue>,
+    ) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = in)]
+    pub fn r#in_(this: &Database, column: &str, values: Vec<JsValue>) -> Database;
 
     #[wasm_bindgen(method, catch, js_name = update)]
-    pub async fn update(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
-
+    pub async fn update(this: &Database, values: &JsValue) -> Result<JsValue, JsValue>;
     #[wasm_bindgen(method, js_name = update)]
-    pub fn update_(this: &Database, values: JsValue) -> Database;
+    pub fn update_(this: &Database, values: &JsValue) -> Database;
 
     /// Delete data
     ///
