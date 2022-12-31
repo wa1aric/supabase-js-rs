@@ -60,7 +60,7 @@ trunk serve
   - [ ] Upsert data
   - [ ] Delete data
   - [ ] Call a Postgres function
-  - [ ] Using filters
+  - [x] Using filters
   - [ ] Using Modifiers
 - [ ] Functions
 - [ ] Realtime

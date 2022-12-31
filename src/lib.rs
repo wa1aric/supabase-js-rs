@@ -151,6 +151,108 @@ extern "C" {
     #[wasm_bindgen(method, js_name = in)]
     pub fn r#in_(this: &Database, column: &str, values: Vec<JsValue>) -> Database;
 
+    /// # Column contains every element in a value
+    ///
+    /// Only relevant for jsonb, array, and range columns. Match only rows where column contains every element appearing in value.
+    ///
+    #[wasm_bindgen(method, catch, js_name = contains)]
+    pub async fn contains(
+        this: &Database,
+        column: &str,
+        value: JsValue,
+    ) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = contains)]
+    pub fn contains_(this: &Database, column: &str, value: JsValue) -> Database;
+
+    /// # Contained by value
+    ///
+    /// Only relevant for jsonb, array, and range columns. Match only rows where every element appearing in column is contained by value.
+    ///
+    #[wasm_bindgen(method, catch, js_name = containedBy)]
+    pub async fn contained_by(
+        this: &Database,
+        column: &str,
+        value: JsValue,
+    ) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = containedBy)]
+    pub fn contained_by_(this: &Database, column: &str, value: JsValue) -> Database;
+
+    /// # Greater than a range
+    ///
+    /// Only relevant for range columns. Match only rows where every element in column is greater than any element in range.
+    ///
+    #[wasm_bindgen(method, catch, js_name = rangeGt)]
+    pub async fn range_gt(this: &Database, column: &str, range: &str) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = rangeGt)]
+    pub fn range_gt_(this: &Database, column: &str, range: &str) -> Database;
+
+    /// # Greater than or equal to a range
+    ///
+    /// Only relevant for range columns. Match only rows where every element in column is either contained in range or greater than any element in range.
+    ///
+    #[wasm_bindgen(method, catch, js_name = rangeGte)]
+    pub async fn range_gte(this: &Database, column: &str, range: &str) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = rangeGte)]
+    pub fn range_gte_(this: &Database, column: &str, range: &str) -> Database;
+
+    /// # Less than a range
+    ///
+    /// Only relevant for range columns. Match only rows where every element in column is less than any element in range.
+    ///
+    #[wasm_bindgen(method, catch, js_name = rangeLt)]
+    pub async fn range_lt(this: &Database, column: &str, range: &str) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = rangeLt)]
+    pub fn range_lt_(this: &Database, column: &str, range: &str) -> Database;
+
+    /// # Less than or equal to a range
+    ///
+    /// Only relevant for range columns. Match only rows where every element in column is either contained in range or less than any element in range.
+    ///
+    #[wasm_bindgen(method, catch, js_name = rangeLte)]
+    pub async fn range_lte(this: &Database, column: &str, range: &str) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = rangeLte)]
+    pub fn range_lte_(this: &Database, column: &str, range: &str) -> Database;
+
+    /// # Mutually exclusive to a range
+    ///
+    /// Only relevant for range columns. Match only rows where column is mutually exclusive to range and there can be no element between the two ranges.
+    ///
+    #[wasm_bindgen(method, catch, js_name = rangeAdjacent)]
+    pub async fn range_adjacent(
+        this: &Database,
+        column: &str,
+        range: &str,
+    ) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = rangeAdjacent)]
+    pub fn range_adjacent_(this: &Database, column: &str, range: &str) -> Database;
+
+    /// # With a common element
+    ///
+    /// Only relevant for array and range columns. Match only rows where column and value have an element in common.
+    ///
+    #[wasm_bindgen(method, catch, js_name = overlaps)]
+    pub async fn overlaps(
+        this: &Database,
+        column: &str,
+        value: JsValue,
+    ) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = overlaps)]
+    pub fn overlaps_(this: &Database, column: &str, value: JsValue) -> Database;
+
+    /// # Match a string
+    ///
+    /// Only relevant for text and tsvector columns. Match only rows where column matches the query string in query.
+    ///
+    #[wasm_bindgen(method, catch, js_name = textSearch)]
+    pub async fn text_search(
+        this: &Database,
+        column: &str,
+        query: &str,
+        options: JsValue,
+    ) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = textSearch)]
+    pub fn text_search_(this: &Database, column: &str, query: &str, options: JsValue) -> Database;
+
     #[wasm_bindgen(method, catch, js_name = update)]
     pub async fn update(this: &Database, values: &JsValue) -> Result<JsValue, JsValue>;
     #[wasm_bindgen(method, js_name = update)]
