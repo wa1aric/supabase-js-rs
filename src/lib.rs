@@ -253,12 +253,23 @@ extern "C" {
     #[wasm_bindgen(method, js_name = textSearch)]
     pub fn text_search_(this: &Database, column: &str, query: &str, options: JsValue) -> Database;
 
+    /// # Update data
+    ///
+    /// Perform an UPDATE on the table or view.
+    ///
     #[wasm_bindgen(method, catch, js_name = update)]
     pub async fn update(this: &Database, values: &JsValue) -> Result<JsValue, JsValue>;
     #[wasm_bindgen(method, js_name = update)]
     pub fn update_(this: &Database, values: &JsValue) -> Database;
 
-    /// Delete data
+    /// # Upsert data
+    ///
+    /// Perform an UPSERT on the table or view.
+    ///
+    #[wasm_bindgen(method, js_name = upsert)]
+    pub fn upsert(this: &Database, values: JsValue) -> Database;
+
+    /// # Delete data
     ///
     /// Should always be combined with filters
     ///
@@ -270,6 +281,10 @@ extern "C" {
     #[wasm_bindgen(method, js_name = delete)]
     pub fn delete(this: &Database) -> Database;
 
+    /// # Insert data
+    ///
+    /// Perform an INSERT into the table or view.
+    ///
     #[wasm_bindgen(method, catch, js_name = insert)]
     pub async fn insert(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
 
