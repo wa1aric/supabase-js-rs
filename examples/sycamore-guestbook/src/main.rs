@@ -3,7 +3,6 @@ use serde::{Deserialize, Serialize};
 use supabase_js_rs::{create_client, SupabaseClient};
 use sycamore::{futures::spawn_local_scoped, prelude::*, suspense::Suspense};
 use wasm_bindgen::{JsValue, __rt::IntoJsResult};
-use web_sys::console::log_1;
 
 #[component]
 async fn Index<G: Html>(cx: Scope<'_>) -> View<G> {
@@ -15,37 +14,20 @@ async fn Index<G: Html>(cx: Scope<'_>) -> View<G> {
 
     let messages: &Signal<Vec<JsValue>> = create_signal(cx, data.to_vec());
 
-    view! {
-        cx,
-        "Index"
-        ul {
-            Indexed(
-                iterable=messages,
-                view=|cx, x| view! {
-                    cx,
-                    li  { (Reflect::get(&x, &"message".into_js_result().unwrap()).unwrap().as_string().unwrap()) }
-                },
-            )
-        }
-        Form
-    }
-}
-
-#[derive(Serialize, Deserialize)]
-pub struct Post {
-    pub message: String,
-    pub name: String,
-}
-
-#[component]
-async fn Form<G: Html>(cx: Scope<'_>) -> View<G> {
-    let client: &RcSignal<SupabaseClient> = use_context::<RcSignal<SupabaseClient>>(cx);
-
     let message: &Signal<String> = create_signal(cx, String::new());
     let name: &Signal<String> = create_signal(cx, String::new());
 
     view! {
         cx,
+        ul {
+            Indexed(
+                iterable=messages,
+                view=|cx, message| view! {
+                    cx,
+                    li  { (Reflect::get(&message, &"message".into_js_result().unwrap()).unwrap().as_string().unwrap()) }
+                },
+            )
+        }
 
         p { "Message" }
         textarea(bind:value=message)
@@ -55,18 +37,24 @@ async fn Form<G: Html>(cx: Scope<'_>) -> View<G> {
 
         button(on:click=move |_| {
             spawn_local_scoped(cx, async move {
-                let message = message.get().to_string();
-                let name = name.get().to_string();
                 let post = Post {
-                    message,
-                    name
+                    message: message.get().to_string(),
+                    name: name.get().to_string(),
                 };
                 let res = client.get().from("messages").insert_(serde_wasm_bindgen::to_value(&post).unwrap()).select(Some("*")).await;
-                log_1(&res.unwrap());
-
+                let inserted = Array::from(&Object::from(Reflect::get(&res.unwrap(), &"data".into_js_result().unwrap()).unwrap()));
+                messages.modify().push(inserted.get(0));
+                message.set("".to_string());
+                name.set("".to_string());
             });
         }) { "Submit" }
     }
+}
+
+#[derive(Serialize, Deserialize)]
+struct Post {
+    message: String,
+    name: String,
 }
 
 fn main() {
