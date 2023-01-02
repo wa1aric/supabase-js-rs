@@ -287,6 +287,8 @@ extern "C" {
     ///
     #[wasm_bindgen(method, catch, js_name = insert)]
     pub async fn insert(this: &Database, values: JsValue) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = insert)]
+    pub fn insert_(this: &Database, values: JsValue) -> Database;
 
     /// Auth methods
     #[wasm_bindgen(method, getter = auth)]

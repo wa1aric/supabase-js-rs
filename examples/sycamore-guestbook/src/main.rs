@@ -1,26 +1,26 @@
 use js_sys::{Array, Object, Reflect};
+use serde::{Deserialize, Serialize};
 use supabase_js_rs::{create_client, SupabaseClient};
-use sycamore::{prelude::*, suspense::Suspense};
-use wasm_bindgen::__rt::IntoJsResult;
+use sycamore::{futures::spawn_local_scoped, prelude::*, suspense::Suspense};
+use wasm_bindgen::{JsValue, __rt::IntoJsResult};
 use web_sys::console::log_1;
 
 #[component]
 async fn Index<G: Html>(cx: Scope<'_>) -> View<G> {
     let client: &RcSignal<SupabaseClient> = use_context::<RcSignal<SupabaseClient>>(cx);
-    let res = client.get().from("messages").select(Some("*")).await;
-    let data = Array::from(&Object::from(
+    let res: Result<JsValue, JsValue> = client.get().from("messages").select(Some("*")).await;
+    let data: Array = Array::from(&Object::from(
         Reflect::get(&res.unwrap(), &"data".into_js_result().unwrap()).unwrap(),
     ));
-    log_1(&data);
 
-    let vector = create_signal(cx, data.to_vec());
+    let messages: &Signal<Vec<JsValue>> = create_signal(cx, data.to_vec());
 
     view! {
         cx,
         "Index"
         ul {
             Indexed(
-                iterable=vector,
+                iterable=messages,
                 view=|cx, x| view! {
                     cx,
                     li  { (Reflect::get(&x, &"message".into_js_result().unwrap()).unwrap().as_string().unwrap()) }
@@ -31,16 +31,40 @@ async fn Index<G: Html>(cx: Scope<'_>) -> View<G> {
     }
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct Post {
+    pub message: String,
+    pub name: String,
+}
+
 #[component]
 async fn Form<G: Html>(cx: Scope<'_>) -> View<G> {
+    let client: &RcSignal<SupabaseClient> = use_context::<RcSignal<SupabaseClient>>(cx);
+
+    let message: &Signal<String> = create_signal(cx, String::new());
+    let name: &Signal<String> = create_signal(cx, String::new());
+
     view! {
         cx,
-        p { "Message" }
-        textarea()
-        p { "Name" }
-        input()
-        button(on:click= move |_| {
 
+        p { "Message" }
+        textarea(bind:value=message)
+
+        p { "Name" }
+        input(bind:value=name)
+
+        button(on:click=move |_| {
+            spawn_local_scoped(cx, async move {
+                let message = message.get().to_string();
+                let name = name.get().to_string();
+                let post = Post {
+                    message,
+                    name
+                };
+                let res = client.get().from("messages").insert_(serde_wasm_bindgen::to_value(&post).unwrap()).select(Some("*")).await;
+                log_1(&res.unwrap());
+
+            });
         }) { "Submit" }
     }
 }
