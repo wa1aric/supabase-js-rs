@@ -25,11 +25,13 @@ trunk serve
 
 ## Examples
 
-- [x] [Sycamore](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-auth)
+- [x] [Sycamore Auth](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-auth)
+- [x] [Guestbook with Sycamore and Supabase](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-guestbook)
 - [ ] Perseus
-- [x] [Yew](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/yew-supabase-auth)
+- [x] [Yew Auth](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/yew-supabase-auth)
 - [ ] Seed
 - [ ] Leptos
+- [ ] MoonZoon
 
 ## What I've done so far
 
@@ -54,11 +56,11 @@ trunk serve
   - [ ] Unenroll a factor
   - [ ] Get Authenticator Assurance Level
 - [ ] Database
-  - [ ] Fetch data
-  - [ ] Insert data
+  - [x] Fetch data
+  - [x] Insert data
   - [ ] Update data
   - [ ] Upsert data
-  - [ ] Delete data
+  - [x] Delete data
   - [ ] Call a Postgres function
   - [x] Using filters
   - [ ] Using Modifiers
