@@ -58,8 +58,11 @@ struct Post {
 }
 
 fn main() {
+    let url = std::env!("SUPABASE_URL");
+    let key = std::env!("SUPABASE_KEY");
+
     sycamore::render(|cx| {
-        let client: RcSignal<SupabaseClient> = create_rc_signal(create_client("", ""));
+        let client: RcSignal<SupabaseClient> = create_rc_signal(create_client(url, key));
         provide_context(cx, client);
 
         view! {

@@ -54,8 +54,8 @@ trunk serve
   - [ ] Unenroll a factor
   - [ ] Get Authenticator Assurance Level
 - [ ] Database
-  - [ ] Fetch data
-  - [ ] Insert data
+  - [x] Fetch data
+  - [x] Insert data
   - [ ] Update data
   - [ ] Upsert data
   - [ ] Delete data
