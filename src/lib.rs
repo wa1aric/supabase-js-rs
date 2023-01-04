@@ -296,24 +296,46 @@ extern "C" {
 
     pub type Auth;
 
-    /// Sign in a user
+    /// # Sign in a user
+    ///
     #[wasm_bindgen(method, catch, js_name = getSession)]
     pub async fn get_session(this: &Auth) -> Result<JsValue, JsValue>;
 
-    /// Create a new user
+    /// # Create a new user
+    ///
     #[wasm_bindgen(method, catch, js_name = signUp)]
     pub async fn sign_up(this: &Auth, credentials: Credentials) -> Result<JsValue, JsValue>;
 
-    /// Sign in a user
+    /// # Sign in a user
+    ///
     #[wasm_bindgen(method, catch, js_name = signInWithPassword)]
     pub async fn sign_in_with_password(
         this: &Auth,
         credentials: Credentials,
     ) -> Result<JsValue, JsValue>;
 
-    /// Sign out a user
+    /// # Sign out a user
+    ///
     #[wasm_bindgen(method, catch, js_name = signOut)]
     pub async fn sign_out(this: &Auth) -> Result<JsValue, JsValue>;
+
+    /// # Retrieve a session
+    ///
+    /// Returns the session, refreshing it if necessary.
+    #[wasm_bindgen(method, catch, js_name = getSession)]
+    pub async fn get_session(this: &Auth) -> Result<JsValue, JsValue>;
+
+    /// # Retrieve a new session
+    ///
+    /// Returns a new session, regardless of expiry status.
+    #[wasm_bindgen(method, catch, js_name = refreshSession)]
+    pub async fn refresh_session(this: &Auth) -> Result<JsValue, JsValue>;
+
+    /// # Retrieve a user
+    ///
+    /// Takes in an optional access token jwt or get the jwt from the current session.
+    #[wasm_bindgen(method, catch, js_name = getUser)]
+    pub async fn get_user(this: &Auth, jwt: Option<&str>) -> Result<JsValue, JsValue>;
 
     /// Listen to auth events
     ///
