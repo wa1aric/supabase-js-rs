@@ -296,11 +296,6 @@ extern "C" {
 
     pub type Auth;
 
-    /// # Sign in a user
-    ///
-    #[wasm_bindgen(method, catch, js_name = getSession)]
-    pub async fn get_session(this: &Auth) -> Result<JsValue, JsValue>;
-
     /// # Create a new user
     ///
     #[wasm_bindgen(method, catch, js_name = signUp)]
