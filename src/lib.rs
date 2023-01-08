@@ -1,4 +1,5 @@
 //! `supabase-js-rs` is a Rust bindings for Supabase JavaScript library via WebAssembly.
+//! 
 
 use wasm_bindgen::prelude::*;
 
@@ -28,13 +29,13 @@ pub struct MFAVerifyParams {
 #[wasm_bindgen]
 extern "C" {
 
+    #[derive(Debug, Clone, PartialEq)]
+    pub type SupabaseClient;
+
     /// # Create client
     ///
     #[wasm_bindgen(js_namespace = ["supabase"], js_name = createClient)]
     pub fn create_client(supabase_url: &str, supabase_key: &str) -> SupabaseClient;
-
-    #[derive(Debug, Clone, PartialEq)]
-    pub type SupabaseClient;
 
     #[wasm_bindgen(method, js_name = from)]
     pub fn from(this: &SupabaseClient, table: &str) -> Database;
