@@ -1,5 +1,5 @@
 //! `supabase-js-rs` is a Rust bindings for Supabase JavaScript library via WebAssembly.
-//! 
+//!
 
 use wasm_bindgen::prelude::*;
 
@@ -362,5 +362,36 @@ extern "C" {
     #[wasm_bindgen(method, catch, js_name = verify)]
     pub fn verify(this: &Mfa, params: MFAVerifyParams) -> Result<JsValue, JsValue>;
     */
+
+    #[wasm_bindgen(method, js_name = channel)]
+    pub fn channel(this: &SupabaseClient, name: &str) -> RealtimeChannel;
+
+    /// # Unsubscribe from all channels
+    ///
+    #[wasm_bindgen(method, js_name = removeAllChannels)]
+    pub fn remove_all_channels(this: &SupabaseClient);
+
+    /// # Retrieve all channels
+    ///
+    #[wasm_bindgen(method, js_name = getChannels)]
+    pub fn get_channels(this: &SupabaseClient) -> JsValue;
+
+    pub type RealtimeChannel;
+
+    /// # Subscribe to database changes
+    ///
+    #[wasm_bindgen(method, js_name = on)]
+    pub fn on(
+        this: &RealtimeChannel,
+        r#type: &str,
+        filter: &JsValue,
+        callback: &Closure<dyn Fn(JsValue)>,
+    ) -> RealtimeChannel;
+
+    #[wasm_bindgen(method, js_name = subscribe)]
+    pub fn subscribe(
+        this: &RealtimeChannel,
+        callback: Option<&Closure<dyn FnMut(JsValue, JsValue)>>,
+    ) -> RealtimeChannel;
 
 }
