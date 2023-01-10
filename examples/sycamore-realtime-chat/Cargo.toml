@@ -1,0 +1,14 @@
+[package]
+name = "sycamore-realtime-chat"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sycamore = { git = "https://github.com/sycamore-rs/sycamore", rev = "e402f11d733c59f02604f6d6ea97a0977c2d90d5" }
+supabase-js-rs = { path = "../../" }
+wasm-bindgen = "0.2.83"
+web-sys = "0.3.60"
+serde = { version = "1.0", features = ["derive"] }
+serde-wasm-bindgen = "0.4"
