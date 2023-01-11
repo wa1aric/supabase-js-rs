@@ -7,7 +7,7 @@ Rust bindings for Supabase JavaScript library via WebAssembly.
 Add `supabase-js-rs` to Cargo.toml
 
 ```
-supabase-js-rs = { version = "0.1.0" }
+supabase-js-rs = { version = "0.1.1" }
 wasm-bindgen = "0.2.83"
 ```
 
