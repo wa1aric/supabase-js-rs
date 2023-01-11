@@ -10,6 +10,12 @@ pub struct Credentials {
     pub password: String,
 }
 
+#[wasm_bindgen(getter_with_clone)]
+pub struct SignInWithOAuthCredentials {
+    pub provider: String,
+    pub options: JsValue,
+}
+
 /*
 #[wasm_bindgen(getter_with_clone)]
 pub struct MFAChallengeParams {
@@ -308,6 +314,16 @@ extern "C" {
     pub async fn sign_in_with_password(
         this: &Auth,
         credentials: Credentials,
+    ) -> Result<JsValue, JsValue>;
+
+    /// # Sign in a user through OAuth
+    ///
+    /// Log in an existing user via a third-party provider.
+    ///
+    #[wasm_bindgen(method, catch, js_name = signInWithOAuth)]
+    pub async fn sign_in_with_oauth(
+        this: &Auth,
+        credentials: SignInWithOAuthCredentials,
     ) -> Result<JsValue, JsValue>;
 
     /// # Sign out a user
