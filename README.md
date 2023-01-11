@@ -30,7 +30,7 @@ trunk serve
 - [ ] Perseus
 - [x] [Yew Auth](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/yew-supabase-auth)
 - [ ] Seed
-- [ ] Leptos
+- [x] [Leptos OAuth](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/leptos-oauth)
 - [ ] MoonZoon
 
 ## What I've done so far
@@ -39,7 +39,7 @@ trunk serve
   - [x] Create a new user
   - [x] Sign in a user
   - [ ] Sign in a user through OTP
-  - [ ] Sign in a user through OAuth
+  - [x] Sign in a user through OAuth
   - [x] Sign out a user
   - [ ] Verify and log in through OTP
   - [x] Retrieve a session
@@ -65,5 +65,5 @@ trunk serve
   - [x] Using filters
   - [ ] Using Modifiers
 - [ ] Functions
-- [ ] Realtime
+- [x] Realtime
 - [ ] Storage
