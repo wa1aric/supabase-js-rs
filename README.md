@@ -26,7 +26,8 @@ trunk serve
 ## Examples
 
 - [x] [Sycamore Auth](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-auth)
-- [x] [Guestbook with Sycamore and Supabase](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-guestbook)
+- [x] [Sycamore Guestbook](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-guestbook)
+- [x] [Sycamore Realtime](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/sycamore-realtime-chat)
 - [ ] Perseus
 - [x] [Yew Auth](https://github.com/wa1aric/supabase-js-rs/tree/master/examples/yew-supabase-auth)
 - [ ] Seed
