@@ -53,6 +53,17 @@ extern "C" {
     #[wasm_bindgen(method, js_name = select)]
     pub fn select_(this: &Database, columns: Option<&str>) -> Database;
 
+    /// # Retrieve the query as a CSV string
+    /// 
+    /// Return data as a string in CSV format.
+    /// 
+    /// ```ignore
+    /// let csv = client.get().from("countries").select_(Some("*")).csv().await.unwrap();
+    /// ```
+    /// 
+    #[wasm_bindgen(method, catch, js_name = csv)]
+    pub async fn csv(this: &Database) -> Result<JsValue, JsValue>;
+
     /// # Column is equal to a value
     ///
     /// Match only rows where column is equal to value.
