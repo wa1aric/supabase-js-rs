@@ -53,6 +53,36 @@ extern "C" {
     #[wasm_bindgen(method, js_name = select)]
     pub fn select_(this: &Database, columns: Option<&str>) -> Database;
 
+    /// # Order the query
+    /// 
+    /// Order query result by column.
+    /// 
+    /// ```ignore
+    /// #[derive(Serialize, Deserialize)]
+    /// #[serde(rename_all = "camelCase")]
+    /// struct OrderOptions {
+    ///     foreign_table: String,
+    ///     nulls_first: bool,
+    ///     ascending: bool,
+    /// }
+    /// let data: JsValue = client
+    /// .get()
+    /// .from("countries")
+    /// .select_(Some("name, cities ( name )"))
+    /// .order(
+    ///    "name",
+    ///    serde_wasm_bindgen::to_value(&OrderOptions {
+    ///     foreign_table: "cities".to_string(),
+    ///     nulls_first: false,
+    ///     ascending: true,
+    ///    }).unwrap(),
+    /// )
+    /// .await.unwrap();
+    /// ```
+    /// 
+    #[wasm_bindgen(method, catch, js_name = order)]
+    pub async fn order(this: &Database, column: &str, options: JsValue) -> Result<JsValue, JsValue>;
+
     /// # Retrieve the query as a CSV string
     /// 
     /// Return data as a string in CSV format.

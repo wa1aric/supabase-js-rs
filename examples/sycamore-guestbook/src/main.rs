@@ -1,13 +1,29 @@
 use js_sys::{Array, Object, Reflect};
 use serde::{Deserialize, Serialize};
 use supabase_js_rs::{create_client, SupabaseClient};
-use sycamore::{futures::spawn_local_scoped, prelude::*, suspense::Suspense};
+use sycamore::{futures::spawn_local_scoped, prelude::*, suspense::Suspense, web::html::tr};
 use wasm_bindgen::{JsValue, __rt::IntoJsResult};
+
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct OrderOptions {
+    ascending: bool,
+}
 
 #[component]
 async fn Index<G: Html>(cx: Scope<'_>) -> View<G> {
     let client: &RcSignal<SupabaseClient> = use_context::<RcSignal<SupabaseClient>>(cx);
-    let res: Result<JsValue, JsValue> = client.get().from("messages").select(Some("*")).await;
+    let res: Result<JsValue, JsValue> = client
+        .get()
+        .from("messages")
+        .select_(Some("*"))
+        .order(
+            "id",
+            serde_wasm_bindgen::to_value(&OrderOptions {
+                ascending: false,
+            }).unwrap(),
+        )
+        .await;
     let data: Array = Array::from(&Object::from(
         Reflect::get(&res.unwrap(), &"data".into_js_result().unwrap()).unwrap(),
     ));
