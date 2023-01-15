@@ -82,6 +82,14 @@ extern "C" {
     /// 
     #[wasm_bindgen(method, catch, js_name = order)]
     pub async fn order(this: &Database, column: &str, options: JsValue) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = order)]
+    pub fn order_(this: &Database, column: &str, options: JsValue) -> Database;
+
+    /// # Limit the query
+    /// 
+    /// Limit the query result by count.
+    #[wasm_bindgen(method, catch, js_name = limit)]
+    pub async fn limit(this: &Database, count: u32) -> Result<JsValue, JsValue>;
 
     /// # Retrieve the query as a CSV string
     /// 

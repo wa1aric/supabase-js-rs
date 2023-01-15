@@ -17,12 +17,13 @@ async fn Index<G: Html>(cx: Scope<'_>) -> View<G> {
         .get()
         .from("messages")
         .select_(Some("*"))
-        .order(
+        .order_(
             "id",
             serde_wasm_bindgen::to_value(&OrderOptions {
                 ascending: false,
             }).unwrap(),
         )
+        .limit(3)
         .await;
     let data: Array = Array::from(&Object::from(
         Reflect::get(&res.unwrap(), &"data".into_js_result().unwrap()).unwrap(),
