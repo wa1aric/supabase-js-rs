@@ -23,7 +23,7 @@ async fn Index<G: Html>(cx: Scope<'_>) -> View<G> {
                 ascending: false,
             }).unwrap(),
         )
-        .limit(3)
+        .range(0, 1)
         .await;
     let data: Array = Array::from(&Object::from(
         Reflect::get(&res.unwrap(), &"data".into_js_result().unwrap()).unwrap(),
