@@ -91,6 +91,8 @@ extern "C" {
     /// 
     #[wasm_bindgen(method, catch, js_name = limit)]
     pub async fn limit(this: &Database, count: u32) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = limit)]
+    pub fn limit_(this: &Database, count: u32) -> Database;
 
     /// # Limit the query to a range
     /// 
@@ -98,6 +100,15 @@ extern "C" {
     /// 
     #[wasm_bindgen(method, catch, js_name = range)]
     pub async fn range(this: &Database, from: u32, to: u32) -> Result<JsValue, JsValue>;
+    #[wasm_bindgen(method, js_name = range)]
+    pub fn range_(this: &Database, from: u32, to: u32) -> Database;
+
+    /// # Retrieve the query as one row
+    /// 
+    /// Return data as a single object instead of an array of objects.
+    /// 
+    #[wasm_bindgen(method, catch, js_name = single)]
+    pub async fn single(this: &Database) -> Result<JsValue, JsValue>;
 
     /// # Retrieve the query as a CSV string
     /// 

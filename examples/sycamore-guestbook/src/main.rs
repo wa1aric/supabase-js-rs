@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use supabase_js_rs::{create_client, SupabaseClient};
 use sycamore::{futures::spawn_local_scoped, prelude::*, suspense::Suspense, web::html::tr};
 use wasm_bindgen::{JsValue, __rt::IntoJsResult};
+use web_sys::console::log_1;
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -19,12 +20,11 @@ async fn Index<G: Html>(cx: Scope<'_>) -> View<G> {
         .select_(Some("*"))
         .order_(
             "id",
-            serde_wasm_bindgen::to_value(&OrderOptions {
-                ascending: false,
-            }).unwrap(),
+            serde_wasm_bindgen::to_value(&OrderOptions { ascending: false }).unwrap(),
         )
-        .range(0, 1)
+        .limit(1)
         .await;
+
     let data: Array = Array::from(&Object::from(
         Reflect::get(&res.unwrap(), &"data".into_js_result().unwrap()).unwrap(),
     ));
