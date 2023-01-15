@@ -54,9 +54,9 @@ extern "C" {
     pub fn select_(this: &Database, columns: Option<&str>) -> Database;
 
     /// # Order the query
-    /// 
+    ///
     /// Order query result by column.
-    /// 
+    ///
     /// ```ignore
     /// #[derive(Serialize, Deserialize)]
     /// #[serde(rename_all = "camelCase")]
@@ -79,45 +79,53 @@ extern "C" {
     /// )
     /// .await.unwrap();
     /// ```
-    /// 
+    ///
     #[wasm_bindgen(method, catch, js_name = order)]
-    pub async fn order(this: &Database, column: &str, options: JsValue) -> Result<JsValue, JsValue>;
+    pub async fn order(this: &Database, column: &str, options: JsValue)
+        -> Result<JsValue, JsValue>;
     #[wasm_bindgen(method, js_name = order)]
     pub fn order_(this: &Database, column: &str, options: JsValue) -> Database;
 
     /// # Limit the query
-    /// 
+    ///
     /// Limit the query result by count.
-    /// 
+    ///
     #[wasm_bindgen(method, catch, js_name = limit)]
     pub async fn limit(this: &Database, count: u32) -> Result<JsValue, JsValue>;
     #[wasm_bindgen(method, js_name = limit)]
     pub fn limit_(this: &Database, count: u32) -> Database;
 
     /// # Limit the query to a range
-    /// 
+    ///
     /// Limit the query result by from and to inclusively.
-    /// 
+    ///
     #[wasm_bindgen(method, catch, js_name = range)]
     pub async fn range(this: &Database, from: u32, to: u32) -> Result<JsValue, JsValue>;
     #[wasm_bindgen(method, js_name = range)]
     pub fn range_(this: &Database, from: u32, to: u32) -> Database;
 
     /// # Retrieve the query as one row
-    /// 
+    ///
     /// Return data as a single object instead of an array of objects.
-    /// 
+    ///
     #[wasm_bindgen(method, catch, js_name = single)]
     pub async fn single(this: &Database) -> Result<JsValue, JsValue>;
 
+    /// # Retrieve the query as 0-1 rows
+    ///
+    /// Return data as a single object instead of an array of objects.
+    ///
+    #[wasm_bindgen(method, catch, js_name = maybeSingle)]
+    pub async fn maybe_single(this: &Database) -> Result<JsValue, JsValue>;
+
     /// # Retrieve the query as a CSV string
-    /// 
+    ///
     /// Return data as a string in CSV format.
-    /// 
+    ///
     /// ```ignore
     /// let csv = client.get().from("countries").select_(Some("*")).csv().await.unwrap();
     /// ```
-    /// 
+    ///
     #[wasm_bindgen(method, catch, js_name = csv)]
     pub async fn csv(this: &Database) -> Result<JsValue, JsValue>;
 

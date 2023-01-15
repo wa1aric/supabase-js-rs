@@ -64,7 +64,7 @@ trunk serve
   - [x] Delete data
   - [ ] Call a Postgres function
   - [x] Using filters
-  - [ ] Using Modifiers
+  - [x] Using Modifiers
 - [ ] Functions
 - [x] Realtime
 - [ ] Storage
