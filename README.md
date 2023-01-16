@@ -39,7 +39,7 @@ trunk serve
 - [ ] Auth
   - [x] Create a new user
   - [x] Sign in a user
-  - [ ] Sign in a user through OTP
+  - [x] Sign in a user through OTP
   - [x] Sign in a user through OAuth
   - [x] Sign out a user
   - [ ] Verify and log in through OTP

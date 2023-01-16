@@ -392,6 +392,13 @@ extern "C" {
         credentials: Credentials,
     ) -> Result<JsValue, JsValue>;
 
+    /// # Sign in a user through OTP
+    ///
+    /// Log in a user using magiclink or a one-time password (OTP).
+    ///
+    #[wasm_bindgen(method, catch, js_name = signInWithOtp)]
+    pub async fn sign_in_with_otp(this: &Auth, credentials: JsValue) -> Result<JsValue, JsValue>;
+
     /// # Sign in a user through OAuth
     ///
     /// Log in an existing user via a third-party provider.
