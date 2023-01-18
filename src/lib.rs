@@ -493,4 +493,51 @@ extern "C" {
         callback: Option<&Closure<dyn FnMut(JsValue, JsValue)>>,
     ) -> RealtimeChannel;
 
+    #[wasm_bindgen(method, js_name = storage)]
+    pub fn storage(this: &SupabaseClient) -> Storage;
+
+    pub type Storage;
+
+    /// # Create a bucket
+    ///
+    /// Creates a new Storage bucket
+    ///
+    #[wasm_bindgen(method, catch, js_name = createBucket)]
+    pub async fn create_bucket(this: &Storage, id: &str) -> Result<JsValue, JsValue>;
+
+    /// # Retrieve a bucket
+    ///
+    /// Retrieves the details of an existing Storage bucket.
+    ///
+    #[wasm_bindgen(method, catch, js_name = getBucket)]
+    pub async fn get_bucket(this: &Storage, id: &str) -> Result<JsValue, JsValue>;
+
+    /// # List all buckets
+    ///
+    /// Retrieves the details of all Storage buckets within an existing project.
+    ///
+    #[wasm_bindgen(method, catch, js_name = listBuckets)]
+    pub async fn list_buckets(this: &Storage) -> Result<JsValue, JsValue>;
+
+    /// # Update a bucket
+    ///
+    /// Updates a Storage bucket
+    ///
+    #[wasm_bindgen(method, catch, js_name = updateBucket)]
+    pub async fn update_bucket(this: &Storage, options: JsValue) -> Result<JsValue, JsValue>;
+
+    /// # Empty a bucket
+    ///
+    /// Removes all objects inside a single bucket.
+    ///
+    #[wasm_bindgen(method, catch, js_name = emptyBucket)]
+    pub async fn empty_bucket(this: &Storage, id: &str) -> Result<JsValue, JsValue>;
+
+    /// # Delete a bucket
+    ///
+    /// Deletes an existing bucket. A bucket can't be deleted with existing objects inside it.
+    ///
+    #[wasm_bindgen(method, catch, js_name = deleteBucket)]
+    pub async fn delete_bucket(this: &Storage, id: &str) -> Result<JsValue, JsValue>;
+
 }
