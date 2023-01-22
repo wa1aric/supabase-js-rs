@@ -432,6 +432,13 @@ extern "C" {
     #[wasm_bindgen(method, catch, js_name = getUser)]
     pub async fn get_user(this: &Auth, jwt: Option<&str>) -> Result<JsValue, JsValue>;
 
+    /// # Update user
+    ///
+    /// Updates user data, if there is a logged in user.
+    ///
+    #[wasm_bindgen(method, catch, js_name = updateUser)]
+    pub async fn update_user(this: &Auth, attributes: JsValue) -> Result<JsValue, JsValue>;
+
     /// Listen to auth events
     ///
     /// # Example

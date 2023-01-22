@@ -44,9 +44,9 @@ trunk serve
   - [x] Sign out a user
   - [ ] Verify and log in through OTP
   - [x] Retrieve a session
-  - [ ] Retrieve a new session
-  - [ ] Retrieve a user
-  - [ ] Update a user
+  - [x] Retrieve a new session
+  - [x] Retrieve a user
+  - [x] Update a user
   - [ ] Set the session data
   - [x] Listen to auth events
   - [ ] Send a password reset request
