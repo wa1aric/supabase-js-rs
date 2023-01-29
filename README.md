@@ -54,7 +54,7 @@ trunk serve
   - [x] Update a user
   - [ ] Set the session data
   - [x] Listen to auth events
-  - [ ] Send a password reset request
+  - [x] Send a password reset request
   - [ ] Enroll a factor
   - [ ] Create a challenge
   - [ ] Verify a challenge

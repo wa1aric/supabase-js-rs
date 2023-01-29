@@ -454,6 +454,17 @@ extern "C" {
     #[wasm_bindgen(method, js_name = onAuthStateChange)]
     pub fn on_auth_state_change(this: &Auth, callback: &Closure<dyn FnMut(JsValue, JsValue)>);
 
+    /// # Send a password reset request
+    ///
+    /// Sends a password reset request to an email address.
+    ///
+    #[wasm_bindgen(method, catch, js_name = resetPasswordForEmail)]
+    pub async fn reset_password_for_email(
+        this: &Auth,
+        email: &str,
+        options: JsValue,
+    ) -> Result<JsValue, JsValue>;
+
     /*
     pub type Mfa;
 
