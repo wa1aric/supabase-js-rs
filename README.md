@@ -2,6 +2,8 @@
 
 Rust bindings for Supabase JavaScript library via WebAssembly.
 
+![Supabase Wasm](https://repository-images.githubusercontent.com/579711492/4e814ba5-3ea3-4678-906b-6595f7972928)
+
 ## Usage
 
 Add `supabase-js-rs` to Cargo.toml
