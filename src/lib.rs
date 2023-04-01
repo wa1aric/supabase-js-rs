@@ -16,6 +16,12 @@ pub struct SignInWithOAuthCredentials {
     pub options: JsValue,
 }
 
+#[wasm_bindgen(getter_with_clone)]
+pub struct CurrentSession {
+    pub access_token: String,
+    pub refresh_token: String,
+}
+
 /*
 #[wasm_bindgen(getter_with_clone)]
 pub struct MFAChallengeParams {
@@ -438,6 +444,12 @@ extern "C" {
     ///
     #[wasm_bindgen(method, catch, js_name = updateUser)]
     pub async fn update_user(this: &Auth, attributes: JsValue) -> Result<JsValue, JsValue>;
+
+    #[wasm_bindgen(method, catch, js_name = setSession)]
+    pub async fn set_session(
+        this: &Auth,
+        current_session: CurrentSession,
+    ) -> Result<JsValue, JsValue>;
 
     /// Listen to auth events
     ///
