@@ -54,7 +54,7 @@ trunk serve
   - [x] Retrieve a new session
   - [x] Retrieve a user
   - [x] Update a user
-  - [ ] Set the session data
+  - [X] Set the session data
   - [x] Listen to auth events
   - [x] Send a password reset request
   - [ ] Enroll a factor
