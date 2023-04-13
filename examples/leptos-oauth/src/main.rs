@@ -5,8 +5,8 @@ use wasm_bindgen::{prelude::Closure, JsValue};
 use web_sys::console::log_1;
 
 #[derive(Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Options {
-    #[serde(rename = "camelCase")]
     pub redirect_to: String,
 }
 
