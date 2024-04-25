@@ -385,6 +385,11 @@ extern "C" {
 
     pub type Auth;
 
+    /// # Sign in anonymously
+    ///
+    #[wasm_bindgen(method, catch, js_name = signInAnonymously)]
+    pub async fn sign_in_anonymously(this: &Auth) -> Result<JsValue, JsValue>;
+
     /// # Create a new user
     ///
     #[wasm_bindgen(method, catch, js_name = signUp)]
@@ -458,7 +463,7 @@ extern "C" {
     /// ```ignore
     /// let client = supabase_js_rs::create_client("SUPABASE_URL", "SUPABASE_ANON_KEY");
     /// let auth_event_callback: Closure<dyn FnMut(JsValue, JsValue)> = Closure::new(move |event: JsValue, session: JsValue| {
-    ///     
+    ///
     /// });
     /// client.auth().on_auth_state_change(&auth_event_callback);
     /// auth_event_callback.forget();
