@@ -63,11 +63,12 @@ trunk serve
   - [ ] Create and verify a challenge
   - [ ] Unenroll a factor
   - [ ] Get Authenticator Assurance Level
+  - [x] Anonymous sign in
 - [ ] Database
   - [x] Fetch data
   - [x] Insert data
-  - [ ] Update data
-  - [ ] Upsert data
+  - [x] Update data
+  - [x] Upsert data
   - [x] Delete data
   - [ ] Call a Postgres function
   - [x] Using filters
